@@ -11,6 +11,10 @@ from adafruit_bme280 import basic as adafruit_bme280
 
 import sys
 
+#Set constants
+ln          = "\n------------------------------------------------------------"
+lOutputFile = '/tmp/datafile'
+
 
 #Create sensor object, communicating over the board's default I2C bus
 i2c = board.I2C()  # uses board.SCL and board.SDA
@@ -39,8 +43,6 @@ bme280.sea_level_pressure = 1013.25
 #is much colder. Comparing the IR temperature with the ambient temperature gives an 
 #indication of cloud cover.
 mlx = adafruit_mlx90614.MLX90614(i2c)
-
-ln = "\n------------------------------------------------------------"
 
 if __name__ == '__main__':
     while True:
@@ -103,7 +105,7 @@ if __name__ == '__main__':
             
             
             
-            f = open('/tmp/datafile','w')
+            f = open(lOutputFile,'w')
             
             f.write('outTemp=')
             f.write(str(round((lTemp_c* 9/5 )+32, 2)))  #save as Fahrenheit 
@@ -122,7 +124,7 @@ if __name__ == '__main__':
             f.write('\n')
  
             f.write('total_light_lux=')
-            f.write(str(round(lux ,3)))
+            f.write(str(round(lux ,2)))
             f.write('\n')
  
             f.write('sqm=')
